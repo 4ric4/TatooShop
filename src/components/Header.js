@@ -12,38 +12,45 @@ const Header = () => {
   const [navMobile, setNavMobile] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      window.scrollY > 50 ? setIsActive(true) : setIsActive(false);
-    });
+    const handleScroll = () => {
+      setIsActive(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
       className={`${
         isActive ? 'h-[100px] lg:h-[100px] shadow-lg' : 'h-[120px] lg:h-[150px]'
-      }
-      fixed left-0 right-0 z-10 max-w-[1920px] w-full mx-auto transition-all duration-300`}
+      } fixed bg-white  left-0 right-0 z-10 max-w-[1920px] w-full mx-auto transition-all duration-300`}
     >
-      <div>
-        <div className="flex justify-between items-center h-full pl-[50px] pr-[60px]">
+        <div className="flex justify-between   items-center h-full pl-[50px] pr-[60px]">
           <a href="/">
-            <img className="w-[188px] h-[90]" src={logo} alt="Logo" />
+            <img className="w-[188px] h-[90px]" src={logo} alt="Logo" />
           </a>
           <div className="hidden xl:flex">
-            <nav />
+            <Nav />
           </div>
-          <div className="xl:hidden absolute right-[5%] bg-dark text-white p-2 rounded-md cursor-pointer">
+          <div
+            className="xl:hidden absolute right-[5%] bg-dark text-white p-2 rounded-md cursor-pointer"
+            onClick={() => setNavMobile(!navMobile)}
+          >
             <TiThMenuOutline className="text-3xl" />
           </div>
           <div
             className={`${
               navMobile ? 'max-h-full' : 'max-h-0'
-            } fixed bg-red-500 w-full h-full left-0 -z-10 transition-all duration-300`}
+            } ${isActive ? 'top-[100px] lg:top-[110px]' : 'top-[120px] lg:top-[150px]'} fixed bg-white w-full h-full left-0 -z-10 transition-all duration-300`}
           >
             <NavMobile />
           </div>
+            
+            <div className='hidden xl:flex'>
+              <Socials />
+            </div>
+        
         </div>
-      </div>
     </header>
   );
 };
