@@ -140,6 +140,13 @@ export const testimonialData = [
     name: 'Douglas Hane',
     occupation: 'Tattoo Artist',
   },
+    {
+    quoteImg: QuoteImg,
+    message:
+      "o Cara é pika",
+    name: 'Ricardo',
+    occupation: 'Programador',
+  },
 ];
 
 export const contactData = {
